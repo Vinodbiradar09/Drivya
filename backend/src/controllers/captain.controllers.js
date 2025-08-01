@@ -95,17 +95,49 @@ const loginCaptain = asyncHandler(async (req, res) => {
     if (!isValidPassword) {
         throw new ApiError(407, "Invalid password or email please check creds");
     }
-    const { accessToken , refreshToken} = await generateAccessAndRefreshTokens(captain._id);
-    if(!accessToken || !refreshToken){
-        throw new ApiError(402 , "failed to generate the tokens");
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(captain._id);
+    if (!accessToken || !refreshToken) {
+        throw new ApiError(402, "failed to generate the tokens");
     }
     captain.status = "active";
-    await captain.save({validateBeforeSave : false});
+    await captain.save({ validateBeforeSave: false });
     const loggedCaptain = await Captain.findById(captain._id).select("-refreshTokens");
-    if(!loggedCaptain){
-        throw new ApiError(404 , "captain not found while logging");
+    if (!loggedCaptain) {
+        throw new ApiError(404, "captain not found while logging");
     }
-    res.status(200).json(new ApiResponse(200 , loggedCaptain , "captain loggedIn successfully"));
+    res.status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(new ApiResponse(200, loggedCaptain, "captain loggedIn successfully"));
 })
 
-export { registerCaptain , loginCaptain };
+const logoutCaptain = asyncHandler(async (req, res) => {
+    const captainId = req.captain?._id;
+    if (!captainId) {
+        throw new ApiError(400, "Captain Id not found");
+    }
+    const captain = await Captain.findByIdAndUpdate(captainId,
+        {
+            $unset: {
+                refreshTokens: 1,
+            }
+        },
+        {
+            new: true,
+            runValidators: true,
+        }
+    )
+    if (!captain) {
+        throw new ApiError(402, "failed to clear the refreshTokens from db");
+    }
+    res.status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(new ApiResponse(200, {}, "Captain logged out successfully"));
+})
+
+const getCaptainProfile = asyncHandler(async(req , res)=>{
+    const captain = req.captain;
+    res.status(200).json(new ApiResponse(200 , captain , "captain profile fetched successfully"));
+})
+export { registerCaptain, loginCaptain , logoutCaptain , getCaptainProfile};
