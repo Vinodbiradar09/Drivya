@@ -16,4 +16,14 @@ app.use(express.static("public"));
 
 app.use(cookieParser());
 
+import { userRouter } from "./src/routes/user.routes.js";
+import { rideRouter } from "./src/routes/ride.routes.js";
+import { mapsRouter } from "./src/routes/maps.routes.js";
+import { captainRouter } from "./src/routes/captain.routes.js";
+
+app.use("/api/v1/user" , userRouter);
+app.use("/api/v1/ride" , rideRouter);
+app.use("/api/v1/maps" , mapsRouter);
+app.use("/api/v1/captain" , captainRouter);
+
 export { app };
