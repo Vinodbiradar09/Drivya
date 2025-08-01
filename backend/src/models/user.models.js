@@ -6,7 +6,7 @@ dotenv.config();
 
 const userSchema = new Schema(
     {
-        fullName: {
+        firstName: {
             type: String,
             required: true,
             trim: true,
@@ -56,7 +56,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.isPasswordCorrect = async function (password) {
-    return await bcrypt.compare(password, this.password);
+    return await bcrypt.compare(password, this.password)
 }
 
 userSchema.methods.generateAccessToken = async function () {
