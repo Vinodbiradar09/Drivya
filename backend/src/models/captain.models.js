@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const captainSchema = new Schema(
     {
-        fullName: {
+        firstName: {
             type: String,
             maxlength: [20, "Full Name can't exceed more than 20 chars"],
             required: true,
@@ -40,6 +40,10 @@ const captainSchema = new Schema(
             type: String,
             enum: ["active", "inactive"],
             default: 'inactive',
+        },
+        phoneNumber : {
+            type : Number,
+            required : [true , "Phone number is required"],
         },
         vehicle: {
             color: {

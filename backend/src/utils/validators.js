@@ -15,3 +15,7 @@ export const commonPasswords = (password) => {
    }
 };
 
+export const validateIndianPhoneNumber = (phoneNumber) => {
+  const regex = /^[6-9]\d{9}$/;
+  return regex.test(phoneNumber);
+};
