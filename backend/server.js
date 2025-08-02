@@ -11,3 +11,6 @@ connectDB()
     .catch((err) => {
         console.log("Connection failed for database", err);
     })
+
+
+    // make sure to restrict the key by visiting the credentails page make sure to restrict websites and ip addresses
