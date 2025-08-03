@@ -1,7 +1,11 @@
 import { Router } from "express";
 import {verifyJWTUser} from "../middlewares/authUser.middlewares.js";
-import {createRide , getFares} from "../controllers/ride.controllers.js";
+import {verifyJWTCaptain} from "../middlewares/authCaptain.middleware.js";
+import {createRide , getFares , confirmRide , startRide , endRide} from "../controllers/ride.controllers.js";
 const rideRouter = Router();
 rideRouter.route("/createRide").post(verifyJWTUser , createRide);
 rideRouter.route("/get-fare").get(verifyJWTUser , getFares);
+rideRouter.route("/confirm").post(verifyJWTCaptain , confirmRide);
+rideRouter.route("/start-ride").get(verifyJWTCaptain , startRide);
+rideRouter.route("/end-ride").post(verifyJWTCaptain , endRide);
 export { rideRouter };
