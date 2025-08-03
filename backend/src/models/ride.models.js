@@ -11,7 +11,6 @@ const rideSchema = new Schema(
         captain: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Captain",
-            required: true,
         },
         pickup: {
             type: String,

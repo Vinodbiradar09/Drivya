@@ -94,6 +94,9 @@ const getCaptainsInTheRadius = async(ltd , lng , radius) =>{
       }
     }
   });
+  if(!captains){
+    throw new ApiError(404 , "No captains found my boy");
+  }
   return captains;
 }
 

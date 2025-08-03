@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
-import { User } from "./src/models/user.models.js";
-import { Captain } from "./src/models/captain.models.js";
+import { User } from "./models/user.models.js";
+import { Captain } from "./models/captain.models.js";
 
 let io;
 const initializeSocket = (server) => {
