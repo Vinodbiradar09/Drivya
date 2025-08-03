@@ -67,10 +67,14 @@ function getOtp(num) {
   return generateOtp(num);
 }
 
-const createRideService = async ({ user,pickup, destination, vehicleType,}) => {
-
-  if(!user || !pickup || !destination || !vehicleType){
-    throw new ApiError(403 , "All the fields are required");
+const createRideService = async ({
+  user,
+  pickup,
+  destination,
+  vehicleType,
+}) => {
+  if (!user || !pickup || !destination || !vehicleType) {
+    throw new ApiError(403, "All the fields are required");
   }
 
   const fare = await getFare(pickup, destination);
@@ -88,4 +92,101 @@ const createRideService = async ({ user,pickup, destination, vehicleType,}) => {
   return ride;
 };
 
-export { createRideService , getFare };
+const confirmRideService = async ({ rideId, captain }) => {
+  if (!rideId || !captain) {
+    throw new ApiError(
+      400,
+      "ride id is required and the captain must be authorized"
+    );
+  }
+  await Ride.findByIdAndUpdate(
+    rideId,
+    {
+      $set: {
+        status: "accepted",
+        captain: captain._id,
+      },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  const ride = await Ride.findOne({ _id: rideId })
+    .populate("user")
+    .populate("captain")
+    .select("+otp");
+  if (!ride) {
+    throw new ApiError(404, "ride not found ");
+  }
+
+  return ride;
+};
+
+const startRideService = async ({ rideId, otp, captain }) => {
+  if (!rideId || otp) {
+    throw new ApiError(403, "ride id and otp is required to start ride");
+  }
+  const ride = await Ride.findOne({ _id: rideId , captain : captain._id })
+    .populate("user")
+    .populate("captain")
+    .select("+otp");
+  if (!ride) {
+    throw new ApiError(404, "ride has not found");
+  }
+  if (ride.status !== "accepted") {
+    throw new ApiError(407, "ride has not accepted");
+  }
+  if (ride.otp !== otp) {
+    throw new ApiError(404, "Invalid otp");
+  }
+  await Ride.findByIdAndUpdate(
+    rideId,
+    {
+      $set: {
+        status: "ongoing",
+      },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  return ride;
+};
+const endRideService = async ({rideId , captain}) => {
+    if(!rideId , !captain){
+        throw new ApiError(403 , "ride id is required to end the ride");
+    }
+    const ride = await Ride.findOne({
+        _id : rideId,
+        captain : captain._id,
+    }).populate('user').populate('captain').select('+otp');
+    if(!ride){
+        throw new ApiError(404 , "ride not found");
+    }
+    if(ride.status !== 'ongoing'){
+        throw new ApiError(404 , "ride is not ongoing");
+    }
+    await Ride.findByIdAndUpdate(rideId , 
+        {
+            $set : {
+                status : 'completed',
+            }
+        },
+        {
+            new : true,
+            runValidators : true
+        }
+    )
+
+    return ride;
+};
+export {
+  createRideService,
+  getFare,
+  confirmRideService,
+  startRideService,
+  endRideService,
+};
