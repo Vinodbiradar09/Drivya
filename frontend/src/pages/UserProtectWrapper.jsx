@@ -11,7 +11,6 @@ const UserProtectWrapper = ({children}) => {
    const fetchUser = async()=>{
      try {
       const response = await currentUser();
-     console.log('User profile response:', response);
       if(response && response.data && response.data.user){
           setUser(response.data.user);
       } else {

@@ -20,8 +20,6 @@ const CaptainLogin = () => {
       setCaptain(res.data.captain); 
       navigate('/captain-home');
     }
-    
-    console.log(res);
     setEmail('');
     setPassword('');
   }

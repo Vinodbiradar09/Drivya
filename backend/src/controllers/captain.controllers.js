@@ -138,6 +138,6 @@ const logoutCaptain = asyncHandler(async (req, res) => {
 
 const getCaptainProfile = asyncHandler(async(req , res)=>{
     const captain = req.captain;
-    res.status(200).json(new ApiResponse(200 , captain , "captain profile fetched successfully"));
+    res.status(200).json(new ApiResponse(200 , {captain : captain} , "captain profile fetched successfully"));
 })
 export { registerCaptain, loginCaptain , logoutCaptain , getCaptainProfile};
