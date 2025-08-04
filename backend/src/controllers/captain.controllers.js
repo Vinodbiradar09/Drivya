@@ -106,9 +106,9 @@ const loginCaptain = asyncHandler(async (req, res) => {
         throw new ApiError(404, "captain not found while logging");
     }
     res.status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json(new ApiResponse(200, loggedCaptain, "captain loggedIn successfully"));
+        .cookie("captainAccessToken", accessToken, options)
+        .cookie("captainRefreshToken", refreshToken, options)
+        .json(new ApiResponse(200, {captain : loggedCaptain}, "captain loggedIn successfully"));
 })
 
 const logoutCaptain = asyncHandler(async (req, res) => {

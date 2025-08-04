@@ -1,12 +1,29 @@
-import React,{useState} from 'react'
+import React,{useState , useContext} from 'react'
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom'
+import { CaptainDataContext } from '../context/CaptainContext';
+import { captainLogin } from '../lib/api';
 const CaptainLogin = () => {
-  const [email , setEmail] = useState('');
-  const [password , setPassword] = useState('');
+ const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const submitHandler = ()=>{
+ 
+  const { setCaptain } = useContext(CaptainDataContext);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const captainData = { email, password };
+    const res = await captainLogin(captainData);
+    
+    if (res.statusCode === 200) {
+      setCaptain(res.data.captain); 
+      navigate('/captain-home');
+    }
+    
+    console.log(res);
+    setEmail('');
+    setPassword('');
   }
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>

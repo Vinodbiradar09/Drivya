@@ -1,15 +1,31 @@
-import React, {useState } from 'react'
+import React, {useState , useContext } from 'react'
 import { Link } from 'react-router-dom';
-
-
-
+import { UserDataContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import {userLogin} from "../lib/api";
 
 const UserLogin = () => {
   const [email , setEmail] = useState('');
   const [password , setPassword] = useState('');
+  // const [userData , setUserData] = useState({});
 
-  const submitHandler = ()=>{
+   const { setUser } = useContext(UserDataContext);
+  const navigate = useNavigate();
+  const submitHandler = async (e)=>{
+    e.preventDefault();
+    const userData = {
+      email : email,
+      password : password
+    };
+    const res = await userLogin(userData);
+    console.log("res" , res);
+    if(res.statusCode === 200){
+      setUser(res.data.user);
+      navigate('/home');
+    }
 
+    setEmail('');
+    setPassword('');
   }
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>

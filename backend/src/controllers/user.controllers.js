@@ -92,9 +92,9 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(404, "User not found");
     }
     res.status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json(new ApiResponse(200, loggedUser, "User loggedIn successfully"));
+        .cookie("userAccessToken", accessToken, options)
+        .cookie("userRefreshToken", refreshToken, options)
+        .json(new ApiResponse(200, {user : loggedUser}, "User loggedIn successfully"));
 })
 
 const logoutUser = asyncHandler(async(req , res)=>{
