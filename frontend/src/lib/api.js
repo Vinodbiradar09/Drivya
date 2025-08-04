@@ -1,3 +1,4 @@
+
 import { axiosInstances } from "./axios";
 
 export const userLogin = async(userLoginData)=>{
@@ -16,6 +17,16 @@ export const captainLogin = async(captainLoginData)=>{
         return response.data;
     } catch (error) {
         console.error(error.message);
+        return null
+    }
+}
+
+export const currentUser = async()=>{
+    try {
+        const response = await axiosInstances.get('/user/currentUser');
+        return response.data;
+    } catch (error) {
+         console.error(error.message);
         return null
     }
 }

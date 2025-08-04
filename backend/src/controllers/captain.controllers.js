@@ -131,8 +131,8 @@ const logoutCaptain = asyncHandler(async (req, res) => {
         throw new ApiError(402, "failed to clear the refreshTokens from db");
     }
     res.status(200)
-        .clearCookie("accessToken", options)
-        .clearCookie("refreshToken", options)
+        .clearCookie("captainAccessToken", options)
+        .clearCookie("captainRefreshToken", options)
         .json(new ApiResponse(200, {}, "Captain logged out successfully"));
 })
 

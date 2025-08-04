@@ -18,7 +18,7 @@ const UserLogin = () => {
       password : password
     };
     const res = await userLogin(userData);
-    console.log("res" , res);
+    console.log("ress" , res);
     if(res.statusCode === 200){
       setUser(res.data.user);
       navigate('/home');

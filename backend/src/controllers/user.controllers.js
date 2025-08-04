@@ -119,8 +119,8 @@ const logoutUser = asyncHandler(async(req , res)=>{
     }
 
     res.status(200)
-    .clearCookie("accessToken" , options)
-    .clearCookie("refreshToken" , options)
+    .clearCookie("userAccessToken" , options)
+    .clearCookie("userRefreshToken" , options)
     .json(new ApiResponse(200 , {} , "User logged out successfully"));
 })
 
@@ -129,6 +129,6 @@ const getUserProfile = asyncHandler(async(req , res)=>{
     if(!user){
         throw new ApiError(404 , "User not found , please register");
     }
-    res.status(200).json(new ApiResponse(200 , user , "successfully got the current user"));
+    res.status(200).json(new ApiResponse(200 , {user : user} , "successfully got the current user"));
 })
 export { registerUser, loginUser , logoutUser , getUserProfile};

@@ -7,7 +7,7 @@ dotenv.config();
 
 const verifyJWTCaptain = asyncHandler(async (req, res, next) => {
     try {
-        const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
+        const token = req.cookies?.captainAccessToken || req.header("Authorization")?.replace("Bearer ", "");
         if (!token) {
             throw new ApiError(401, "Unauthorized User's request");
         }
