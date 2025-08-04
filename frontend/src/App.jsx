@@ -7,7 +7,6 @@ import UserSignup from "./pages/UserSignUp";
 import Captainlogin from "./pages/CaptainLogin";
 import CaptainSignup from "./pages/CaptainSignUp";
 import { Route, Routes } from 'react-router-dom'
-import CaptainLogin from './pages/CaptainLogin';
 import UserProtectWrapper from "./pages/UserProtectWrapper";
 import CaptainProtectWrapper from "./pages/CaptainProtectWrapper";
 import Home from "./pages/Home";
