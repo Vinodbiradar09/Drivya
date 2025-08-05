@@ -113,3 +113,22 @@ export const confirmRideApi = async( { rideId, captain } )=>{
         return null
     }
 }
+
+export const  registerUserAccount = async(userData)=>{
+    try {
+        const response = await axiosInstances.post('/user/register' , userData);
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+export const registerCaptainAccount = async(captainData)=>{
+  try {
+      const response = await axiosInstances.post('/captain/registerCaptain' , captainData);
+      return response.data;
+  } catch (error) {
+    console.error(error.message);
+  }
+
+}

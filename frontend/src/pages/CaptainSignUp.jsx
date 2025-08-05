@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { registerCaptainAccount } from '../lib/api';
 const CaptainSignUp = () => {
   const navigate = useNavigate();
   const [email , setEmail] = useState('');
@@ -10,9 +11,30 @@ const CaptainSignUp = () => {
   const [vehiclePlate , setVehiclePlate] =useState('');
   const [ vehicleCapacity, setVehicleCapacity ] = useState('')
   const [ vehicleType, setVehicleType ] = useState('')
+  const [phoneNumber , setPhoneNumber] = useState('');
 
-  const submitHandler = ()=>{
-    navigate;
+  const submitHandler = async (e)=>{
+    e.preventDefault();
+    const captainData = {
+      firstName,
+      lastName,
+      email,
+      password,
+      phoneNumber,
+      vehicle : {
+        color : vehicleColor,
+        plate : vehiclePlate,
+        capacity : vehicleCapacity,
+        vehicleType : vehicleType
+      }
+    }
+    const res = await registerCaptainAccount(captainData);
+    // console.log('res cap' ,res)
+    if(res.statusCode === 200){
+      navigate('/captain-login');
+    }
+
+
   }
   return (
 
@@ -34,6 +56,10 @@ const CaptainSignUp = () => {
                 <input type="email" required value={email} onChange={(e)=> setEmail(e.target.value)}    placeholder='email@example.com'   className='bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base' />
                  <h3 className='text-lg font-medium mb-2'>Enter Password</h3>
                  <input type="password" required value={password} onChange={(e)=>setPassword(e.target.value)}    placeholder='password'   className='bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base' />
+                   <h3 className='text-lg font-medium mb-2'>Enter Number</h3>
+                   <input type="number" required value={phoneNumber} onChange={(e)=> setPhoneNumber(e.target.value)} 
+                   placeholder='9999999999' className='bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base'
+                   />
 
                 <h3 className='text-lg font-medium mb-2'>Vehicle Information</h3>
                 <div className='flex gap-4 mb-7'>

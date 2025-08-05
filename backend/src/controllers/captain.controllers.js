@@ -36,6 +36,7 @@ const registerCaptain = asyncHandler(async (req, res) => {
         [firstName, lastName, email, password, phoneNumber].some(field => typeof field !== "string" || field.trim() === "") ||
         typeof vehicle !== "object" || vehicle === null
     ) {
+        console.log("details" , firstName , lastName , email , password , vehicle , phoneNumber);
         throw new ApiError(400, "All fields including vehicle details are required to create a captain");
     }
 

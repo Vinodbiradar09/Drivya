@@ -11,7 +11,7 @@ const Riding = () => {
   const {socket} = useContext(SocketContext);
   const navigate = useNavigate();
 
-      socket.on("ride-ended", () => {
+    socket.on("ride-ended", () => {
         navigate('/home')
     })
 

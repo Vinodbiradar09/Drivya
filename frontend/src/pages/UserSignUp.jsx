@@ -1,5 +1,6 @@
 import React , {useState} from 'react'
 import { Link , useNavigate } from 'react-router-dom';
+import { registerUserAccount } from '../lib/api';
 const UserSignUp = () => {
   const [email , setEmail] = useState('');
   const [password , setPassword] = useState('');
@@ -8,8 +9,23 @@ const UserSignUp = () => {
   
   const navigate = useNavigate();
 
-  const submitHandler = ()=>{
-   navigate;
+  const submitHandler = async (e)=>{
+    e.preventDefault();
+    const userData = {
+      firstName,
+      lastName ,
+      email,
+      password
+    }
+    const res = await registerUserAccount(userData);
+    if(res.statusCode === 200){
+      navigate('/login');
+    }
+
+    setEmail('')
+    setFirstName('')
+    setLastName('')
+    setPassword('')
   }
   return (
     <div>
