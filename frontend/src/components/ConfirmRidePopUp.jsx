@@ -5,7 +5,7 @@ import { axiosInstances } from '../lib/axios'
 const ConfirmRidePopUp = (props) => {
     const [otp , setOtp] = useState('');
     const navigate = useNavigate();
-
+    console.log("prr" , props);
     const submitHander = async(e)=>{
         e.preventDefault();
         const response = await axiosInstances.get('/ride/start-ride' , {
@@ -14,8 +14,8 @@ const ConfirmRidePopUp = (props) => {
                 otp : otp,
             },
         });
-
-        if(response.data.statusCode === 200){
+        console.log('ressss', response);
+        if(response.status === 200){
             props.setConfirmRidePopupPanel(false),
             props.setRidePopupPanel(false),
             navigate('/captain-riding', { state: { ride: props.ride } })

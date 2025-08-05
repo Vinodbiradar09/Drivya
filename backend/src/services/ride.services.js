@@ -125,7 +125,8 @@ const confirmRideService = async ({ rideId, captain }) => {
 };
 
 const startRideService = async ({ rideId, otp, captain }) => {
-  if (!rideId || otp) {
+  if (!rideId || !otp) {
+    console.log('rideIdS' , rideId)
     throw new ApiError(403, "ride id and otp is required to start ride");
   }
   const ride = await Ride.findOne({ _id: rideId , captain : captain._id })

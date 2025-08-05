@@ -175,6 +175,9 @@ const submitHandler = (e)=>{
     async function createRide() {
       const res = await createRideApi(pickup , destination , vehicleType)
       console.log("res" , res);
+      console.log("p" ,pickup);
+      console.log('de' , destination);
+      console.log('ve' , vehicleType);
     }
 
 

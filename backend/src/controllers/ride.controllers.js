@@ -40,7 +40,8 @@ const createRide = asyncHandler(async (req, res) => {
     vehicleType,
   });
 
-  if (!ride) {
+  if (!ride) { 
+
     throw new ApiError(409, "Failed to create the ride for the user");
   }
   res
@@ -117,6 +118,8 @@ const confirmRide = asyncHandler(async (req, res) => {
 const startRide = asyncHandler(async (req, res) => {
   const { rideId, otp } = req.query;
   if (!rideId || !otp) {
+    console.log('ride' , rideId);
+    console.log('otp' , otp);
     throw new ApiError(402, "ride id and otp is required to start ride");
   }
   const ride = await startRideService({ rideId, otp, captain: req.captain });
