@@ -17,7 +17,7 @@ import CaptainDetails from './components/CaptainDetails';
 const App = () => {
   return (
     <div>
-     {/* <Routes>
+     <Routes>
       <Route path='/' element = {<Start/>} />
       <Route path='/login' element = {<UserLogin />} />
       <Route path='/riding' element = {<Riding />} />
@@ -31,8 +31,8 @@ const App = () => {
 
        <Route path='/captain-home' element={<CaptainProtectWrapper><CaptainHome /></CaptainProtectWrapper>} />
        <Route path='/captain/logout' element={<CaptainProtectWrapper> <CaptainLogout /></CaptainProtectWrapper>} />
-     </Routes> */}
-    </div>
+     </Routes>
+ </div>
   )
 }
 

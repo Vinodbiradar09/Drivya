@@ -61,9 +61,39 @@ export const logoutCaptain = async()=>{
     }
 }
 
-export const endRide = async({rideId})=>{
+export const endRide = async(rideId)=>{
     try {
         const response = await axiosInstances.post('/ride/end-ride' , rideId );
+        return response.data
+    } catch (error) {
+        console.error(error.message);
+        return null
+    }
+}
+
+export const handleSuggestions = async(config)=>{
+    try {
+        const response = await axiosInstances.get('/maps/get-suggestions' , config)
+        return response.data;
+    } catch (error) {
+        console.error(error.message)
+        return null
+    }
+}
+
+export const getFare = async()=>{
+    try {
+        const response = await axiosInstances.get('/ride/get-fare')
+        return response.data;
+    } catch (error) {
+        console.error(error.message);
+        return null
+    }
+}
+
+export const  createRideApi = async()=>{
+    try {
+        const response = await axiosInstances.post('/ride/createRide')
         return response.data
     } catch (error) {
         console.error(error.message);
