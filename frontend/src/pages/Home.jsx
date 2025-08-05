@@ -168,6 +168,7 @@ const submitHandler = (e)=>{
       const res = await getFare({
         params : {pickup , destination},
       })
+      console.log('fare' , res.data);
       setFare(res.data);
     }
 
@@ -225,7 +226,7 @@ const submitHandler = (e)=>{
 
                       </form>
 
-                      <button onChange={findTrip}  className='bg-black text-white px-4 py-2 rounded-lg mt-3 w-full'>
+                      <button onClick={findTrip}  className='bg-black text-white px-4 py-2 rounded-lg mt-3 w-full'>
                         Find Trip
                       </button>
           </div>

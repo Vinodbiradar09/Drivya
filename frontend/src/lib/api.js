@@ -81,9 +81,9 @@ export const handleSuggestions = async(config)=>{
     }
 }
 
-export const getFare = async()=>{
+export const getFare = async(config)=>{
     try {
-        const response = await axiosInstances.get('/ride/get-fare')
+        const response = await axiosInstances.get('/ride/get-fare' , config)
         return response.data;
     } catch (error) {
         console.error(error.message);
@@ -91,10 +91,21 @@ export const getFare = async()=>{
     }
 }
 
-export const  createRideApi = async()=>{
+export const createRideApi = async()=>{
     try {
         const response = await axiosInstances.post('/ride/createRide')
         return response.data
+    } catch (error) {
+        console.error(error.message);
+        return null
+    }
+}
+
+
+export const confirmRideApi = async()=>{
+    try {
+      const response = await axiosInstances.post("/ride/confirm")
+      return response.data  
     } catch (error) {
         console.error(error.message);
         return null
