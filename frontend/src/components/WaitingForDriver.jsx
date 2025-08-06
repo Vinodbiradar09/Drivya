@@ -2,13 +2,15 @@ import React from 'react'
 
 const WaitingForDriver = (props) => {
   return (
-    <div className='max-h-[90vh] overflow-y-auto'>
-      <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
+    <div className='h-full max-h-[85vh] flex flex-col'>
+      <h5 className='p-1 text-center w-full flex-shrink-0' onClick={() => {
         props.setWaitingForDriver(false)
-      }}><i className="text-2xl sm:text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
+      }}>
+        <i className="text-2xl sm:text-3xl text-gray-200 ri-arrow-down-wide-line"></i>
+      </h5>
 
-      <div className='mt-6 sm:mt-0'>
-        <div className='flex items-center justify-between mb-4'>
+      <div className='flex-1 flex flex-col min-h-0 px-2'>
+        <div className='flex items-center justify-between mb-4 flex-shrink-0'>
           <img className='h-10 sm:h-12 flex-shrink-0' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
           <div className='text-right min-w-0 flex-1 ml-3'>
             <h2 className='text-sm sm:text-lg font-medium capitalize truncate'>{props.ride?.captain.firstname}</h2>
@@ -18,8 +20,8 @@ const WaitingForDriver = (props) => {
           </div>
         </div>
 
-        <div className='flex gap-2 justify-between flex-col items-center'>
-          <div className='w-full mt-3 sm:mt-5'>
+        <div className='flex-1 overflow-y-auto'>
+          <div className='w-full space-y-0'>
             <div className='flex items-center gap-3 sm:gap-5 p-2 sm:p-3 border-b-2'>
               <i className="ri-map-pin-user-fill flex-shrink-0 text-sm sm:text-base"></i>
               <div className='min-w-0 flex-1'>
