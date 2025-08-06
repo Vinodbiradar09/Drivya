@@ -11,7 +11,7 @@ const RidePopUp = (props) => {
             <div className='flex items-center justify-between p-3 bg-yellow-400 rounded-lg mt-4'>
                 <div className='flex items-center gap-3 '>
                     <img className='h-12 rounded-full object-cover w-12' src="https://i.pinimg.com/236x/af/26/28/af26280b0ca305be47df0b799ed1b12b.jpg" alt="" />
-                    <h2 className='text-lg font-medium'>{props.ride?.user.firstname + " " + props.ride?.user.lastname}</h2>
+                    <h2 className='text-lg font-medium'>{props.ride?.user.firstName + " " + props.ride?.user.lastName}</h2>
                 </div>
                 <h5 className='text-lg font-semibold'>2.2 KM</h5>
             </div>

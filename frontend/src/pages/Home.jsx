@@ -15,7 +15,7 @@ import LiveTracking from '../components/LiveTracking';
 import { handleSuggestions } from '../lib/api';
 import { getFare } from '../lib/api';
 import { createRideApi } from '../lib/api';
-
+import { logoutUser } from '../lib/api';
 const Home = () => {
   const [pickup , setPickup] = useState('');
   const [destination , setDestination] = useState('');
@@ -82,6 +82,20 @@ const handleDestinationChange = async(e)=>{
     return null;
   }
 };
+
+const handleLogout = async ()=>{
+  const response = await logoutUser()
+    .then((res)=>{
+       if(res.statusCode === 200){
+        console.log('fire');
+        navigate('/login');
+       }
+    })
+    .catch((err)=>{
+       console.log(err);
+       navigate('/login');
+    })
+}
 
 const submitHandler = (e)=>{
   e.preventDefault();
@@ -176,6 +190,14 @@ const submitHandler = (e)=>{
   return (
     <div className='h-screen relative overflow-hidden'>
        <img className='w-12 sm:w-16 absolute left-3 sm:left-5 top-3 sm:top-5' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="" />
+
+       <button 
+         onClick={handleLogout}
+         className="absolute right-3 sm:right-3 top-3 sm:top-15 z-20 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors"
+         aria-label="Logout"
+       >
+         <i className="ri-logout-circle-r-line text-xl text-gray-700"></i>
+       </button>
        
        <div className='h-screen w-screen'>
         <LiveTracking />
